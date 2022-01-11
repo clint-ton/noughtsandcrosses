@@ -17,7 +17,13 @@ body {
     height: 20vh;
     margin: 0.5rem;
     border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
 }
+
+
 
 #board {
     background-color: #333;
