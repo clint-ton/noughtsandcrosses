@@ -34,3 +34,26 @@ body {
 .row {
     display: flex;
 }
+
+.hidden {
+    display: none;
+}
+
+.messageBox {
+    font-size: 4rem;
+}
+
+button {
+    font-size: 4rem;
+    background-color: #333;
+    color: #ededed;
+    border-radius: 12px;
+    border-style: none;
+}
+
+.endMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

@@ -141,13 +141,14 @@ const game = (() => {
         return true;
     }
 
-    // calls checkdraw/check win
-    const updateState = () => {
+
+    const updateState = (state) => {
         if (_checkWin()) {
-            console.log(_currentPlayer.getMark())
+            displayController.endScreen(`${_currentPlayer.getMark()} Wins`);
         } else if (_checkDraw()) {
-            console.log("draw")
-        }
+            displayController.endScreen("Game ended in a draw");
+        } 
+
     }
 
     return { getCurrentPlayer, toggleCurrentPlayer, updateState }
@@ -155,8 +156,12 @@ const game = (() => {
 })();
 
 const displayController = (() => {
+
+    const container = document.querySelector("#container");
+
     const drawBoard = () => {
-        const board = document.querySelector("#board");
+        const board = document.createElement("div");
+        board.id = "board"
         for (let i = 0; i < GRID_SIZE; i++) {
             const row = document.createElement("div");
             row.classList.add("row");
@@ -172,10 +177,37 @@ const displayController = (() => {
             };
             board.appendChild(row);
         };
+        container.appendChild(board);
     };
 
-    return { drawBoard };
+    const _removeBoard = () => {
+        const board = document.querySelector("#board");
+        const container = document.querySelector("#container");
+        container.removeChild(board)
+    }
+
+    const _restart = () => {
+        location.reload();
+    }
+
+    const endScreen = (message) => {
+        _removeBoard()
+        const endMenu = document.createElement("div");
+        endMenu.classList.add("endMenu")
+        const messageBox = document.createElement("div");
+        messageBox.classList.add("messageBox")
+        const restart = document.createElement("button");
+        restart.classList.add("restart")
+        messageBox.textContent = message;
+        restart.textContent = "↺";
+        restart.addEventListener('click', _restart);
+        endMenu.appendChild(messageBox);
+        endMenu.appendChild(restart);
+        container.appendChild(endMenu);
+
+    }
+
+    return { drawBoard, endScreen };
 })();
 
 displayController.drawBoard();
-
